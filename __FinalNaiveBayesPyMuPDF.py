@@ -17,9 +17,9 @@ from flask import Flask, Response, abort, jsonify, request
 import nltk
 import shutil
 
-#curl -X POST http://10.32.109.63:5000/treino
-#curl -X POST http://10.32.109.63:5000/classificar
-#curl -X POST http://10.32.109.63:5000/ajustar
+#curl -X POST http://SEU IP:5000/treino
+#curl -X POST http://SEU IP:5000/classificar
+#curl -X POST http://SEU IP:5000/ajustar
 
 #ENDPOINTS treino, classificar, ajustar
 
@@ -27,6 +27,7 @@ app = Flask(__name__)
 
 #para fazer o download das stopwords, apos o download pode ser comentado ########################################################################################
 # nltk.download() 
+
 stopwords = stopwords.words('portuguese')  # Gets the list of stopwords in Portuguese.
 stemmer = RSLPStemmer()  # Initializes the RSLP stemmer for reducing words to their root form.
 
@@ -106,7 +107,7 @@ def resposta():
     }
 
     # Directory where the data (PDFs) are stored
-    data_dir = r'C:\Users\3470622\Desktop\Workspace\pgm testes\API_especializadas\APITreinamento\DirTrein'  # Defines the directory where the PDF files are stored.
+    data_dir = r'C:CAMINHO PARA O DIRETORIO DIRTREIN'  # Defines the directory where the PDF files are stored.
     pdf_files = os.listdir(data_dir)  # Lists the files in the specified directory.
     documents, labels = [], []
     # documents = []  # Initializes a list to store the documents (text extracted from PDFs).
@@ -265,7 +266,7 @@ pipeline_class = Pipeline([
 
 
 
-pdf_file_path_class = r"C:\Users\3470622\Desktop\Workspace\pgm testes\API_especializadas\APITreinamento\PDA_PeticaoInicial_16_PDA.pdf"
+pdf_file_path_class = r"C:CAMINHO PARA O PDF"
 
 
 @app.route('/classificar', methods=['POST'])
@@ -366,8 +367,8 @@ def copiar_pdf_para_diretorio(origem_pdf_erro, destino_diretorio_erro, especiali
 
 @app.route('/ajustar', methods=['POST'])
 def resposta3():  
-    caminho = r"C:\Users\3470622\Desktop\Workspace\pgm testes\API_especializadas\APITreinamento\PDA_PeticaoInicial_16_PDA.pdf"  
-    caminho_dir = r"C:\Users\3470622\Desktop\Workspace\pgm testes\API_especializadas\APITreinamento\DirTrein"
+    caminho = r"C:CAMINHO DO PDF"  
+    caminho_dir = r"CAMINHO DO DIRETORIO DIRTREIN"
     copiar_pdf_para_diretorio(caminho, caminho_dir, "PPE")
     print('Sucesso')
     return jsonify({'message': 'Model trained successfully!', 'classification_report': copiar_pdf_para_diretorio(caminho, caminho_dir, "INPUT PARA ESPECIALIZADA")})
@@ -384,4 +385,4 @@ def resposta3():
 
 
 if __name__ == '__main__':
-  app.run(host='10.32.109.63', debug=True)
+  app.run(host='SEU IP', debug=True)
